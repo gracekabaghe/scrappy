@@ -1,8 +1,12 @@
 const express = require('express');
 const cheerio = require('cheerio');
 const axios = require('axios');
-
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
+
+
 const PORT = process.env.PORT || 5000;
 
 
@@ -19,7 +23,7 @@ app.get('/results', (req, res) => {
             const $ = cheerio.load(html)
             const articles = []
 
-            $('.fc-item__title', html).each(function () { //<-- cannot be a function expression
+            $('.fc-item__title', html).each(function () { 
                 const title = $(this).text()
                 const url = $(this).find('a').attr('href')
                 articles.push({
